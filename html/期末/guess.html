@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .container {
+      text-align: center;
+      margin-top: 100px;
+    }
+
+    .message {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    .input-group input {
+      width: 50px;
+      font-size: 18px;
+      padding: 5px;
+    }
+
+    .button {
+      background-color: blue;
+      color: white;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>猜數字遊戲</h1>
+    <div class="message"></div>
+    <div class="input-group">
+      <input type="number" id="guess" min="1" max="100" placeholder="輸入數字" />
+      <button class="button" onclick="checkGuess()">猜</button>
+    </div>
+  </div>
+
+  <script>
+    var random_number = Math.floor(Math.random() * 100) + 1;
+    var attempts = 0;
+
+    function checkGuess() {
+      var guess = parseInt(document.getElementById("guess").value);
+      var message = document.querySelector(".message");
+
+      if (isNaN(guess) || guess < 1 || guess > 100) {
+        message.textContent = "請輸入1到100之間的數字！";
+      } else if (guess < random_number) {
+        attempts++;
+        message.textContent = "猜的數字太小了！";
+      } else if (guess > random_number) {
+        attempts++;
+        message.textContent = "猜的數字太大了！";
+      } else {
+        attempts++;
+        message.textContent = "恭喜你，猜對了！你總共猜了 " + attempts + " 次。";
+        document.getElementById("guess").disabled = true;
+        document.querySelector(".button").disabled = true;
+      }
+    }
+  </script>
+</body>
+</html>
